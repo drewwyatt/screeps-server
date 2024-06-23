@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  screeps-server:
+    build: .
+    container_name: screeps-server
+    ports:
+      - '8000:8000' # Adjust as necessary for your application
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo:4.4
+    container_name: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+  redis:
+    image: redis:6
+    container_name: redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+
+volumes:
+  mongo-data:
+  redis-data:
